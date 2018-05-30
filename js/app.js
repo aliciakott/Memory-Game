@@ -1,4 +1,7 @@
-
+/*
+*The following classes utilize the Animations CSS library
+* .animated .flipInX .bounce .shake
+*/
 
 var timeID;
 let cardTracker = [];
@@ -6,7 +9,7 @@ let tries = 0;
 let clickCount = 0;
 let startingTime = 0;
 let endingTime = 0;
-//following variables capture dom elements
+//following six variables capture dom elements
 const moves = document.querySelectorAll(".moves");
 const timer = document.querySelectorAll(".timer");
 const restart = document.querySelector(".restart");
@@ -62,6 +65,7 @@ shuffle(cards);
 
 function buildBoard(cards) {
   const fragment = document.createDocumentFragment();
+
   for (let card of cards) {
     const listItem = document.createElement("li");
     const newCard = document.createElement("i");
@@ -97,6 +101,7 @@ function timeKeeper() {
 
 function checkMatch() {
   let cardsCheck = document.querySelectorAll(".open");
+
   for (let card of cardsCheck) {
     card.classList.remove("flipInX");
     if (cardTracker[tries-1] == cardTracker[tries-2]) {
@@ -106,6 +111,7 @@ function checkMatch() {
     }
     card.classList.remove("open", "show");
   }
+
   clickCount = 0;
   countMatches();
 }
@@ -114,6 +120,7 @@ function countMatches() {
   let matches = 0;
   const counter = document.querySelectorAll(".match");
   matches = counter.length;
+
   if (matches === 16) {
     clearInterval(timeID);
     moves[1].innerHTML = moves[0].innerHTML;
@@ -126,9 +133,11 @@ function rating() {
   const stars = document.querySelectorAll(".fa-star");
   const numberStars = document.querySelector(".number-stars");
   numberStars.innerHTML = 3;
+
   for (let star of stars) {
     star.style.color = "#02ccba";
   }
+
   if (tries >= 20 && tries < 40) {
     stars[2].style.color = "white";
     numberStars.innerHTML = 2;
