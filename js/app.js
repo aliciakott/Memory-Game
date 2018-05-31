@@ -3,7 +3,7 @@
 * .animated .flipInX .bounce .shake
 */
 
-var timeID;
+let timeID;
 let cardTracker = [];
 let tries = 0;
 let clickCount = 0;
@@ -22,23 +22,16 @@ const button = document.querySelector("#close-window");
  */
 let cards = [
   "fa-diamond",
-  "fa-diamond",
-  "fa-paper-plane-o",
   "fa-paper-plane-o",
   "fa-anchor",
-  "fa-anchor",
-  "fa-bolt",
   "fa-bolt",
   "fa-cube",
-  "fa-cube",
-  "fa-leaf",
   "fa-leaf",
   "fa-bicycle",
-  "fa-bicycle",
-  "fa-bomb",
   "fa-bomb"
 ];
 
+cards.push(...cards);
 
 /*
  * Display the cards on the page
@@ -64,6 +57,7 @@ function shuffle(array) {
 shuffle(cards);
 
 function buildBoard(cards) {
+  //creates the html for each card in array and appends it to the DOM
   const fragment = document.createDocumentFragment();
 
   for (let card of cards) {
@@ -77,6 +71,7 @@ function buildBoard(cards) {
 
   deck.appendChild(fragment);
 
+  //starts the "clock" on the game
   startingTime = performance.now();
   timeID = setInterval(timeKeeper, 1000);
 }
@@ -94,12 +89,16 @@ function buildBoard(cards) {
  */
 
 function timeKeeper() {
+  //increments the timer on the game every second
   endingTime = performance.now();
   const seconds = Math.floor((endingTime - startingTime) / 1000);
   timer[0].innerHTML = seconds;
 }
 
 function checkMatch() {
+/*  collects every card that has been "opened" and compares their class names to find a match
+ *  depending on success or failure, appropriate class is added for desired effect
+ */
   let cardsCheck = document.querySelectorAll(".open");
 
   for (let card of cardsCheck) {
@@ -117,6 +116,9 @@ function checkMatch() {
 }
 
 function countMatches() {
+/*  collects and counts every card which has been matched.
+ *  when all cards are matched, the timer is stopped and the popup screen is visible
+ */
   let matches = 0;
   const counter = document.querySelectorAll(".match");
   matches = counter.length;
@@ -130,6 +132,7 @@ function countMatches() {
 }
 
 function rating() {
+  //changes css style of stars according to number of tries and adds the number of stars remaining to popup window
   const stars = document.querySelectorAll(".fa-star");
   const numberStars = document.querySelector(".number-stars");
   numberStars.innerHTML = 3;
@@ -149,8 +152,11 @@ function rating() {
 }
 
 function reset() {
+  //rebuilds the game board and resets all values
   deck.textContent = "";
   moves[0].innerHTML = 0;
+  //the following reassignment fixes the restart button :)
+  clickCount = 0;
   tries = 0;
   startingTime = 0;
   endingTime = 0;
@@ -159,6 +165,7 @@ function reset() {
 }
 
 deck.addEventListener("click", function(e) {
+  //click event "opens" cards when two are clicked, and prevents duplicate click
   if (e.target.nodeName === "LI" && e.target.classList.contains("open") === false && clickCount <= 1) {
     e.target.classList.add("open", "show", "animated", "flipInX");
     e.target.classList.remove("shake");
@@ -174,10 +181,12 @@ deck.addEventListener("click", function(e) {
 }, true);
 
 restart.addEventListener("click", function() {
+  //pairs reset function to restart button
   reset();
 }, true);
 
 button.addEventListener("click", function() {
+  //hides popup screen and resets the game board
   popUp.classList.add("no-show");
   reset();
 })

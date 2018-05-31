@@ -7,6 +7,8 @@ Match all the cards to see how well you did!
 Clone or download the files to your local repository and open index.html on the browser of your choice.
 
 ## Dependencies
-This game relies on Daniel Eden's CSS library, https://daneden.github.io/animate.css/
+This game relies on a few open-use libraries: Google Fonts, Daniel Eden's CSS library (https://daneden.github.io/animate.css/), and Font Awesome (https://fontawesome.com/get-started).
 
-It is accessed remotely via an external stylesheet link in the Head tag of index.html
+Each of these are accessed remotely via an external stylesheet link in the Head tag of index.html
+
+If you remove any of these tags, the game may not behave as expected.
